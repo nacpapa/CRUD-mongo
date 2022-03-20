@@ -1,0 +1,53 @@
+{{#if tasks}}
+  <table class="table table-boederer table-hover table-dark">
+    <thead>
+      <tr>
+        <th>N.</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Operations</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{! VAMOS A UTILIZAR UN BUCLE FOR PARA HANDLEBARS }}
+      {{! AL EACH LE DECIMOS QUE POR CADA RECORRIDO MUESTRE UN LI }}
+      {{#each tasks}}
+        <tr>
+            {{! SI DONE ESTA EN TRU MOSTRAMOS EL DESHACER, SINO MOSTRAMOS EL HACER }}
+            {{#if done}}
+            {{! EL @INDEX ES EL ORDEN EN EL QUE RECORRE HANDLEBARS }}
+            <td><del>{{@index}}</del></td>
+            <td><del>{{title}}</del></td>
+            <td><del>{{description}}</del></td>
+            <td>
+            <a class="btn btn-warning" href="/toggleDone/{{_id}}">Undone</a>
+            {{else}}
+            <td>{{@index}}</td>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>
+            <a href="/toggleDone/{{_id}}" class="btn btn-success">Done</a>
+            
+            {{/if}}
+
+            <a
+              href="/task/{{_id}}/edit"
+              method="GET"
+              class="btn btn-info"
+            >Update</a>
+            <a href="/delete/{{_id}}" class="btn btn-danger">Delete</a>
+          </td>
+
+        </tr>
+
+      {{/each}}
+    </tbody>
+  </table>
+
+{{else}}
+  <div class="text-center">
+    <h1>No task</h1>
+  </div>
+
+{{/if}}
